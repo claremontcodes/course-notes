@@ -1,0 +1,266 @@
+\documentclass{amsart}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{color}
+
+% Style for code listings
+\lstset{
+  % backgroundcolor=\color{cyan!20},
+  basicstyle=\color{cyan}\footnotesize\ttfamily,
+  numbers=left,
+  numberstyle=\footnotesize,
+  frame=ltb,
+  framerule=0pt
+}
+
+% To set the width of a tikz picture
+\usepackage{environ}
+\makeatletter
+\newsavebox{\measure@tikzpicture}
+\NewEnviron{scaletikzpicturetowidth}[1]{%
+  \def\tikz@width{#1}%
+  \def\tikzscale{1}\begin{lrbox}{\measure@tikzpicture}%
+  \BODY
+  \end{lrbox}%
+  \pgfmathparse{#1/\wd\measure@tikzpicture}%
+  \edef\tikzscale{\pgfmathresult}%
+  \BODY
+}
+\makeatother
+
+\begin{document}
+
+\newcommand{\term}[2]{\textbf{#1}\marginpar{\footnotesize\textsf{#2}}}
+\newcommand{\marginnote}[1]{\marginpar{\footnotesize #1}}
+\title{Claremont Codes\\Week 1: Introduction}
+\maketitle
+
+\section{Processes}
+
+Hello, programmers! We are going to embark on a journey of programming. Programming is a building field, like cooking, construction, or manufacturering. What does programmers build? Fundamentally, programmers build \term{processes}{Process}. Processes are ways to describe \textit{how to} do something. This kind of how-to knowledge is different than most kinds of knowledge you learn about in other fields, which are \textit{what is} knowledge---statements or facts.
+
+Computational processes are like magic spells. They cannot be seen or touched. They are not made of matter. But they are very real and they can do work. Processes are like spells, and like spells, they are composed using special words and rules called \term{programming languages}{Programming language}. In this class we will use the programming language JavaScript. A JavaScript compiler is included in almost modern web browser, making it is the most widely used programming language in the world.
+
+\section{Transformers, Inputs, and Outputs}
+Processes take \term{input}{Input} values and \textit{transform} them into an \term{output}{Output} value. That may not sound like much, but that is the basis for almost all building processes: they take raw materials as input and follow a series of steps to turn them into a new thing that is a combination of the starting materials. Computational processes at their core are about transformation.
+
+Good programmers make lots of drawings to help them see the organization of their processes. The fundamental diagram of programming is the so-called \term{black box model}{Black box model} drawn below. The box model underlies just about all computational processes---from the very biggest of software systems, to the simplest and smallest of all.
+
+\begin{figure}[h]
+\begin{scaletikzpicturetowidth}{\textwidth}
+  \begin{tikzpicture}[scale=\tikzscale, node distance=3cm, color=cyan, font=\sffamily\small]
+
+    \node[draw, thick, fill=cyan!20, minimum size=2em, inner sep=1em] (transformer) {Transformer};
+    \node (inputs) [left of=transformer] {Inputs};
+    \node (output) [right of=transformer] {Output};
+
+    \draw[->, thick, shorten >= 1em, shorten <= 0.25em] (inputs) -- (transformer);
+    \draw[->, thick, shorten >= 0.25em, shorten <= 0.5em] (transformer) -- (output);
+
+  \end{tikzpicture}
+\end{scaletikzpicturetowidth}
+\caption{\label{fig:intro-fundemental-diagram} The Fundamental Diagram of computer science and software engineering in all its glory. It describes just about everything a programmer could possibly do.}
+\end{figure}
+
+Fortunately, the diagram doesn't have many parts. There are just three: the inputs, the outputs, and the transformer. The transformer takes in \emph{inputs} and \emph{transforms} them into \emph{outputs}. That's it. As a programmer, you will write software that turns specific inputs into particular outputs to accomplsh a given task. The reason this model is called a black box is because we don't actually know how the parts inside the box work---we can't look inside! To us, how the transformer does its job opaque. All we know is how to supply inputs and collect its output. Let's look at a few examples in JavaScript.
+
+\subsection{The \texttt{Math} library}
+
+JavaScript provides a \href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math}{built-in library} called \texttt{Math} that contains useful values and functions that perform common mathematical operations. \term{Functions}{Function} are one way you can turn inputs into an output in JavaScipt. To use or \term{call}{Function call} a function, you type its name followed by the inputs you want it to work surrounded by parentheses. If you have supply more than one input, they need to be separated by commas, like so:
+
+\begin{figure}[h]
+\begin{lstlisting}
+Math.abs(7);
+\end{lstlisting}
+\end{figure}
+
+The function \texttt{abs(x)} in the library \texttt{Math} calculates the absolute value of its single input \texttt{x}. The dot (\texttt{.}) that follows the name \texttt{Math} means to look for the function inside the library. The syntax is follows:
+
+\begin{enumerate}
+  \item The name of the library is \texttt{Math} library.
+  \item The name of the functions is \texttt{abs}.
+  \item We are calling the function \texttt{abs} with one input.
+  \item The value of that input is \texttt{-7}.
+\end{enumerate}
+
+\begin{figure}[h]
+\begin{scaletikzpicturetowidth}{\textwidth}
+  \begin{tikzpicture}[scale=\tikzscale, node distance=3cm, color=cyan, font=\sffamily\small]
+
+    \node[draw, thick, fill=cyan!20, minimum size=2em, inner sep=1em] (transformer) {\texttt{Math.abs}};
+    \node (inputs) [left of=transformer] {\texttt{-7}};
+    \node (output) [right of=transformer] {\texttt{7}};
+
+    \draw[->, thick, shorten >= 1em, shorten <= 0.25em] (inputs) -- (transformer);
+    \draw[->, thick, shorten >= 0.25em, shorten <= 0.5em] (transformer) -- (output);
+
+  \end{tikzpicture}
+\end{scaletikzpicturetowidth}
+\caption{The black box diagram of the function call \texttt{Math.abs(-7)}}
+\end{figure}
+
+
+The function \texttt{pow(x, y)} takes two number inputs and outputs the value of the first input raised to the power of the second input. The mathematically equivalent notation would be $x^y$.
+
+\begin{figure}[h]
+\begin{lstlisting}
+Math.pow(4, 0.5);
+\end{lstlisting}
+\end{figure}
+
+The syntax for this call \texttt{Math.pow()} is very similar to the one we did to \texttt{Math.abs()}. The differences are the function name and the number and value of the inputs we passed to it. The diagram looks very similar, too.
+
+\begin{figure}[h]
+\begin{scaletikzpicturetowidth}{\textwidth}
+  \begin{tikzpicture}[scale=\tikzscale, node distance=3cm, color=cyan, font=\sffamily\small]
+
+    \node[draw, thick, fill=cyan!20, minimum size=2em, inner sep=1em] (transformer) {\texttt{Math.pow}};
+    \node (inputs) [left of=transformer] {\texttt{4, 0.5}};
+    \node (output) [right of=transformer] {\texttt{2}};
+
+    \draw[->, thick, shorten >= 1em, shorten <= 0.25em] (inputs) -- (transformer);
+    \draw[->, thick, shorten >= 0.25em, shorten <= 0.5em] (transformer) -- (output);
+
+  \end{tikzpicture}
+\end{scaletikzpicturetowidth}
+\caption{The black box diagram of the function call \texttt{Math.pow(4, 0.5)}}
+\end{figure}
+
+By applying functions to inputs and outputs in a sequence, called a \term{program}{Program}, you will be able to perform any computation you like. This is how everything in programming works, including web sites, mobile applications, scientific simulations, and video streaming serviecs.
+
+Soon we will learn how to creating functions of our own that will be indistinguishable from built-in functions. By creating new functions of your own, you can extend the JavaScript language adding a new function to do exactly what you would like it to.
+
+\section{Four Friends of Programming}
+
+There are lots of things to learn about engineering. New technologies are built every single day. And it is difficult to keep up. The shear number of things to know can be overwhelming. But fear not! There actually aren't that many different things you can do with a programming language. In fact, there are only four.\marginnote{The fact that there are only four things you can do is something of a theoretical marvel. It is related to \emph{Church-Turing thesis} and lies as the heart of the foundations of computing. Lucky for us, it means we need to learn only four concepts. Actually the fourth one, organization and reuse, is merely a convenience for us humans.} Any new technology or technique you run across is a cousin to one or more of the four friends you will make in this chapter. The four things you can do in a programming language are:
+
+\begin{enumerate}
+  \item \textbf{Store data and retrieve it later to use.}
+  Your friend for the pillar of data storage and retrieval is a \emph{constant}. Other instances of this pillar include files, databases, networked resources, and web pages on the Internet. At their heart, however, they're all about stashing some information somewhere and fetching it later.
+
+  \item \textbf{Decide between alternatives.}
+  Your friend for the pillar of decision-making is the \textsf{if} statement. Other examples of this pillar include associative arrays, pattern matching, and \textsf{switch} statements. These technologies exist to add decision-making into programs. Conditional elements put the ``sometimes'' into programs that would otherwise be ``always'' based on context and circumstance.
+
+  \item \textbf{Repeat things.}
+  The ability to repeat things quickly is what makes computers so useful. Your friend for the pillar of repetition is the \textsf{for}~loop. Other examples of this pillar include \textsf{while}~loops and \textsf{do-while}~loops, recursion, and coroutines. At their core, however, the whole point is to repeat something.
+
+  \item \textbf{Organize 1--3 into individual pieces.}
+  This last pillar isn't technically required, but it perhaps the most useful. But it is also the hardest to master. It's all about organizing our programs into pieces that are easy for people to read, understand, expand, troubleshoot, and fix. This pillar could also be called \emph{programming style}. Your friend from this pillar is \emph{function}. Other members of the pillar include libraries, modules, closures, classes, and design patterns. Since style is often a matter of taste, this pillar is the most contentious and is the basis of many religious wars.
+\end{enumerate}
+
+That's it! Master the four pillars of programming and you can confidently tackle any project. That is not to say that these four skills are easy to master. Mastery is hard work. But when you find yourself learning something new, ask yourself, ``Which of my four friends is this new friend most like?'' Or if you are stuck implementing a solution and aren't sure what to do, ask yourself, ``Which of my four friends could help me most right now?''
+
+
+\section{Data Types and Expressions}
+Programming is useful because programming languages provide \term{values}{Value} to represent individual things (like numbers) and \term{operators} (like `Math.pow()` or `+`) that combine them produce new values. A collection of like values and their operators are called a \term{data type}{Data type}. We'll start with the built-in \textsf{Number} data type. But there are many more, and before long you'll be creating your own! Before that though, we should learn the anatomy information in programming.
+
+Each piece of information in a program has three parts:
+
+\begin{itemize}
+  \item (Optional) Name
+  \item Data Type
+  \item Value
+\end{itemize}
+
+
+You can use data by typing in a value. For example, \texttt{0.1} or \texttt{-8}. We can visualize the components of a piece of information in a program by drawing a little table.
+
+\begin{figure}[h]
+  \color{cyan}
+\begin{tabular}{|c|c|c|}
+  \hline
+  \textsc{Name} & \textsc{Type} & \textsc{Value}\\
+  \hline
+  --- & \textsf{Number} & \texttt{-8}\\
+  \hline
+\end{tabular}
+\caption{The box diagram for the value \texttt{-8}}
+\end{figure}
+
+It is often useful to associate a name that describes how a value is used. In JavaScript, we use the special keyword {\color{cyan}\texttt{const}} and the \term{assignment operator}{Assignment (\texttt{=})} ({\color{cyan}\texttt{=}})to link a name with a value. Named values created in this way are called \term{constants}{Constant}. They can be referenced later, but they cannot be updated. For example,
+
+\begin{figure}[h]
+\begin{lstlisting}
+  const account_balance = 75.25;
+  const favorite_number = 11;
+  const how_much_i_care = Infinity;
+\end{lstlisting}
+\end{figure}
+
+The assignment operator \textit{looks} like the equal sign you know from math. It is not. JavaScript uses a different symbol to test for equality. When you see the assignment operator you should replace it with the word ``gets``, not ``equals''. It would have been better to use a different symbol like $\leftarrow$, but sadly that's not on a standard keyboard.
+
+The lines above can be read:
+\begin{enumerate}
+  \item ``The constant \texttt{account\_balance} \emph{gets} the values \texttt{72.25}.''
+  \item ``The constant \texttt{favorite\_number} \emph{gets} the value \texttt{11}.''
+  \item ``The constant \texttt{how\_much\_i\_care} \emph{gets} the value \texttt{Infinit}.''
+\end{enumerate}
+
+After line 1 has been run, the box diagram for \texttt{account\_balance} looks like this:
+
+\begin{figure}[h]
+  \color{cyan}
+\begin{tabular}{|c|c|c|}
+  \hline
+  \textsc{Name} & \textsc{Type} & \textsc{Value}\\
+  \hline
+  \texttt{account\_balance} & \textsf{Number} & \texttt{72.25}\\
+  \hline
+\end{tabular}
+\caption{The box diagram for the constant \texttt{account\_balance}}
+\end{figure}
+
+You can calculate new values using previously defined ones and also use the standard arithemetic operators {\color{cyan}\texttt{+}} (addition)\term{}{Arithmetic operators}, {\color{cyan}\texttt{-}} (subtraction), {\color{cyan}\texttt{*}} (multiplication), and {\color{cyan}\texttt{/}} (division).
+
+\begin{figure}[h]
+  \begin{lstlisting}
+  const updated_balance = account_balance - 5 * 8.50;
+  \end{lstlisting}
+\end{figure}
+
+\section{Transformers Again: Functions}
+
+Now that we have the built-in \textsf{Number} data type to play with and know about the \texttt{Math} library functions, let's put them together to create functions of our own.
+
+To create a function in JavaScript we use the special keyword {\color{cyan}{\texttt{function}}}. Like other types of data, functions usually have a name. When we define a new function we must specify how many inputs there are by providing placeholder parameters for each one. We can use those parameter names in the body of the fuction to describe the calculation we want to perform. Let's look at an example.
+
+To create a function that squares a number, we need to instruct JavaScript to multiply a number by itself.
+
+\begin{figure}[h]
+\begin{lstlisting}
+function square(x) {
+  return x * x;
+}
+\end{lstlisting}
+\end{figure}
+
+The name of the function is \texttt{square}. It takes one input, denoted by the parameter \texttt{x}. The definition of the function lies between two curly braces (\texttt{\{\}}) and each instruction is on a separate line, which ends with a semi colon (\texttt{;}). The output of the function is marked by another special keyword {\color{cyan}\texttt{return}};
+
+You can read this code listing as ``To square a number \texttt{x}, output \texttt{x} multiplied by \texttt{x}.'' Now we can use our new function just like any of the built in functions by invoking its name with a value.
+
+\begin{lstlisting}
+square(7);
+\end{lstlisting}
+
+The name of the input parameter doesn't matter much. This is a different definition that does exactly the same thing. What matter is that your are consistent within the \term{block}{Block} of code between the curly braces.
+
+\begin{lstlisting}
+function square(num, num) {
+  return num * num;
+}
+\end{lstlisting}
+
+Functions can have multiple instructions and use constants to store intermediate values as part of their calculation. To find the average of three numbers, we need to add them up and divide by 3. Here's one way to implement that function using a constant.
+
+\begin{lstlisting}
+function average_of_three(x, y, z) {
+  const total = x + y + z;
+  const avg = total / 3;
+  return avg;
+}
+\end{lstlisting}
+
+It is usually easier to read and debug code that uses constants to store intermediate calculations on separate lines. When more than one operatation happens in a single line, things can get hard to reason about. After all, it is easier to think about one thing than it is to thinking about two at the same time.
+\end{document}
