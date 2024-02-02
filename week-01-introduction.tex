@@ -4,6 +4,7 @@
 \usepackage{listings}
 \usepackage{tikz}
 \usepackage{color}
+\usepackage{microtype}
 
 % Style for code listings
 \lstset{
@@ -39,14 +40,17 @@
 
 \section{Processes}
 
-Hello, programmers! We are going to embark on a journey of programming. Programming is a building field, like cooking, construction, or manufacturering. What does programmers build? Fundamentally, programmers build \term{processes}{Process}. Processes are ways to describe \textit{how to} do something. This kind of how-to knowledge is different than most kinds of knowledge you learn about in other fields, which are \textit{what is} knowledge---statements or facts.
+Hello, programmers! We are going to embark on a journey of programming. Programming is a building field, like cooking, construction, or manufacturing. What do programmers build? Fundamentally, programmers build \term{processes}{Process}. Processes are ways to describe \textit{how to} do something. This kind of how-to knowledge is different than most kinds of knowledge you learn about in other fields, which are \textit{what is} knowledge---statements or facts.
+% @SDI: Worth mentioning that what you are calling a "process" is often called an "algorithm" in the wild? This is just because humans are elitist nerds and like to use fancy words to sound smart, though.
 
-Computational processes are like magic spells. They cannot be seen or touched. They are not made of matter. But they are very real and they can do work. Processes are like spells, and like spells, they are composed using special words and rules called \term{programming languages}{Programming language}. In this class we will use the programming language JavaScript. A JavaScript compiler is included in almost modern web browser, making it is the most widely used programming language in the world.
+Computational processes are like magic spells. They cannot be seen or touched. They are not made of matter. But they are very real and they can do work. Processes are like spells, and like spells, they are composed using special words and rules called \term{programming languages}{Programming language}. In this class we will use the programming language JavaScript. A JavaScript compiler is included in almost every modern web browser, making it is the most widely used programming language in the world.
 
 \section{Transformers, Inputs, and Outputs}
 Processes take \term{input}{Input} values and \textit{transform} them into an \term{output}{Output} value. That may not sound like much, but that is the basis for almost all building processes: they take raw materials as input and follow a series of steps to turn them into a new thing that is a combination of the starting materials. Computational processes at their core are about transformation.
+% @SDI: "In a chemical reaction, matter is neither created nor destroyed."
 
 Good programmers make lots of drawings to help them see the organization of their processes. The fundamental diagram of programming is the so-called \term{black box model}{Black box model} drawn below. The box model underlies just about all computational processes---from the very biggest of software systems, to the simplest and smallest of all.
+% @SDI: Happy to see "good programmers draw their pictures." I learned that lesson from my CS2 professor, Vera Kettnaker.
 
 \begin{figure}[h]
 \begin{scaletikzpicturetowidth}{\textwidth}
@@ -63,16 +67,17 @@ Good programmers make lots of drawings to help them see the organization of thei
 \end{scaletikzpicturetowidth}
 \caption{\label{fig:intro-fundemental-diagram} The Fundamental Diagram of computer science and software engineering in all its glory. It describes just about everything a programmer could possibly do.}
 \end{figure}
+% @SDI: I like the picture, but wish that it had multiple "input" lines on the left feeding into it.
 
-Fortunately, the diagram doesn't have many parts. There are just three: the inputs, the outputs, and the transformer. The transformer takes in \emph{inputs} and \emph{transforms} them into \emph{outputs}. That's it. As a programmer, you will write software that turns specific inputs into particular outputs to accomplsh a given task. The reason this model is called a black box is because we don't actually know how the parts inside the box work---we can't look inside! To us, how the transformer does its job opaque. All we know is how to supply inputs and collect its output. Let's look at a few examples in JavaScript.
+Fortunately, the diagram doesn't have many parts. There are just three: the inputs, the outputs, and the transformer. The transformer takes in \emph{inputs} and \emph{transforms} them into \emph{outputs}. That's it. As a programmer, you will write software that turns specific inputs into particular outputs to accomplish a given task. The reason this model is called a black box is because we don't actually know how the parts inside the box work---we can't look inside! To us, how the transformer does its job is opaque. All we know is how to supply inputs and collect its output. Let's look at a few examples in JavaScript.
 
 \subsection{The \texttt{Math} library}
 
-JavaScript provides a \href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math}{built-in library} called \texttt{Math} that contains useful values and functions that perform common mathematical operations. \term{Functions}{Function} are one way you can turn inputs into an output in JavaScipt. To use or \term{call}{Function call} a function, you type its name followed by the inputs you want it to work surrounded by parentheses. If you have supply more than one input, they need to be separated by commas, like so:
+JavaScript provides a \href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math}{built-in library} called \texttt{Math} that contains useful values and functions that perform common mathematical operations. \term{Functions}{Function} are one way you can turn inputs into an output in JavaScipt. To use or \term{call}{Function call} a function, you type its name followed by the inputs you want it to work surrounded by parentheses. (If you have supply more than one input, they need to be separated by commas.) As an example:
 
 \begin{figure}[h]
 \begin{lstlisting}
-Math.abs(7);
+Math.abs(-7);
 \end{lstlisting}
 \end{figure}
 
@@ -130,31 +135,36 @@ The syntax for this call \texttt{Math.pow()} is very similar to the one we did t
 
 By applying functions to inputs and outputs in a sequence, called a \term{program}{Program}, you will be able to perform any computation you like. This is how everything in programming works, including web sites, mobile applications, scientific simulations, and video streaming serviecs.
 
-Soon we will learn how to creating functions of our own that will be indistinguishable from built-in functions. By creating new functions of your own, you can extend the JavaScript language adding a new function to do exactly what you would like it to.
+Soon we will learn how to create functions of our own that will be indistinguishable from built-in functions. By creating new functions of your own, you can extend the JavaScript language adding a new function to do whatever you would like it to.
 
 \section{Four Friends of Programming}
 
-There are lots of things to learn about engineering. New technologies are built every single day. And it is difficult to keep up. The shear number of things to know can be overwhelming. But fear not! There actually aren't that many different things you can do with a programming language. In fact, there are only four.\marginnote{The fact that there are only four things you can do is something of a theoretical marvel. It is related to \emph{Church-Turing thesis} and lies as the heart of the foundations of computing. Lucky for us, it means we need to learn only four concepts. Actually the fourth one, organization and reuse, is merely a convenience for us humans.} Any new technology or technique you run across is a cousin to one or more of the four friends you will make in this chapter. The four things you can do in a programming language are:
+There are lots of things to learn about engineering. New technologies are built every single day. And it is difficult to keep up. The sheer number of things to know can be overwhelming. But fear not! There actually aren't that many different things you can do with a programming language. In fact, there are only four.\marginnote{The fact that there are only four things you can do is something of a theoretical marvel. It is related to \emph{Church-Turing thesis} and lies as the heart of the foundations of computing. Lucky for us, it means we need to learn only four concepts. Actually the fourth one, organization and reuse, is merely a convenience for us humans.} Any new technology or technique you run across is a cousin to one or more of the four friends you will make in this chapter. The four things you can do in a programming language are:
+% @SDI: Screw convenience. Introduce your students to Turing Tarpits first thing! (No, don't.)
 
 \begin{enumerate}
   \item \textbf{Store data and retrieve it later to use.}
   Your friend for the pillar of data storage and retrieval is a \emph{constant}. Other instances of this pillar include files, databases, networked resources, and web pages on the Internet. At their heart, however, they're all about stashing some information somewhere and fetching it later.
+  % @SDI: "Variables" aren't worth a mention? They're as much a workhorse as a constant is.
 
   \item \textbf{Decide between alternatives.}
   Your friend for the pillar of decision-making is the \textsf{if} statement. Other examples of this pillar include associative arrays, pattern matching, and \textsf{switch} statements. These technologies exist to add decision-making into programs. Conditional elements put the ``sometimes'' into programs that would otherwise be ``always'' based on context and circumstance.
+  % @SDI: Maybe call "associative arrays" "tables?" Everyone knows what a table is, you look things up in it.
 
   \item \textbf{Repeat things.}
   The ability to repeat things quickly is what makes computers so useful. Your friend for the pillar of repetition is the \textsf{for}~loop. Other examples of this pillar include \textsf{while}~loops and \textsf{do-while}~loops, recursion, and coroutines. At their core, however, the whole point is to repeat something.
+  % @SDI: You are bold to flag coroutines so early.
 
   \item \textbf{Organize 1--3 into individual pieces.}
   This last pillar isn't technically required, but it perhaps the most useful. But it is also the hardest to master. It's all about organizing our programs into pieces that are easy for people to read, understand, expand, troubleshoot, and fix. This pillar could also be called \emph{programming style}. Your friend from this pillar is \emph{function}. Other members of the pillar include libraries, modules, closures, classes, and design patterns. Since style is often a matter of taste, this pillar is the most contentious and is the basis of many religious wars.
+  % @SDI: Some of them bloody. All of them enjoyable.
 \end{enumerate}
 
 That's it! Master the four pillars of programming and you can confidently tackle any project. That is not to say that these four skills are easy to master. Mastery is hard work. But when you find yourself learning something new, ask yourself, ``Which of my four friends is this new friend most like?'' Or if you are stuck implementing a solution and aren't sure what to do, ask yourself, ``Which of my four friends could help me most right now?''
 
 
 \section{Data Types and Expressions}
-Programming is useful because programming languages provide \term{values}{Value} to represent individual things (like numbers) and \term{operators} (like `Math.pow()` or `+`) that combine them produce new values. A collection of like values and their operators are called a \term{data type}{Data type}. We'll start with the built-in \textsf{Number} data type. But there are many more, and before long you'll be creating your own! Before that though, we should learn the anatomy information in programming.
+Programming is useful because programming languages provide \term{values}{Value} to represent individual things (like numbers) and \term{operators}{Operator} (like \texttt{Math.pow()} or \texttt{+}) that combine them produce new values. A collection of like values and their operators are called a \term{data type}{Data type}. We'll start with the built-in \textsf{Number} data type. But there are many more, and before long you'll be creating your own! Before that though, we should learn the anatomy information in programming.
 
 Each piece of information in a program has three parts:
 
@@ -189,13 +199,13 @@ It is often useful to associate a name that describes how a value is used. In Ja
 \end{lstlisting}
 \end{figure}
 
-The assignment operator \textit{looks} like the equal sign you know from math. It is not. JavaScript uses a different symbol to test for equality. When you see the assignment operator you should replace it with the word ``gets``, not ``equals''. It would have been better to use a different symbol like $\leftarrow$, but sadly that's not on a standard keyboard.
+The assignment operator \textit{looks} like the equal sign you know from math. It is not. JavaScript uses a different symbol to test for equality. When you see the assignment operator you should replace it with the word ``gets'', not ``equals''. It would have been better to use a different symbol like $\leftarrow$, but sadly that's not on a standard keyboard.
 
 The lines above can be read:
 \begin{enumerate}
   \item ``The constant \texttt{account\_balance} \emph{gets} the values \texttt{72.25}.''
   \item ``The constant \texttt{favorite\_number} \emph{gets} the value \texttt{11}.''
-  \item ``The constant \texttt{how\_much\_i\_care} \emph{gets} the value \texttt{Infinit}.''
+  \item ``The constant \texttt{how\_much\_i\_care} \emph{gets} the value \texttt{Infinity}.''
 \end{enumerate}
 
 After line 1 has been run, the box diagram for \texttt{account\_balance} looks like this:
@@ -262,5 +272,5 @@ function average_of_three(x, y, z) {
 }
 \end{lstlisting}
 
-It is usually easier to read and debug code that uses constants to store intermediate calculations on separate lines. When more than one operatation happens in a single line, things can get hard to reason about. After all, it is easier to think about one thing than it is to thinking about two at the same time.
+It is usually easier to read and debug code that uses constants to store intermediate calculations on separate lines. When more than one operatation happens in a single line, things can get hard to reason about. After all, it is easier to think about one thing than it is to think about two at the same time.
 \end{document}
